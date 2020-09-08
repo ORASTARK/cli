@@ -183,6 +183,22 @@ var _ = Describe("rollback Command", func() {
 					cmd.Force = true
 				})
 
+				When("failing to create the deployment", func() {
+					var expectedErr error
+
+					BeforeEach(func() {
+						expectedErr = errors.New("deployment error")
+						fakeActor.CreateDeploymentByApplicationAndRevisionReturns("", v7action.Warnings{"warning-1", "warning-2"}, expectedErr)
+					})
+
+					It("returns the error and prints warnings", func() {
+						Expect(executeErr).To(Equal(errors.New("deployment error")))
+
+						Expect(testUI.Err).To(Say("warning-1"))
+						Expect(testUI.Err).To(Say("warning-2"))
+					})
+				})
+
 				It("skips the prompt and executes the rollback", func() {
 					Expect(fakeActor.GetApplicationByNameAndSpaceCallCount()).To(Equal(1), "GetApplicationByNameAndSpace call count")
 					appName, spaceGUID := fakeActor.GetApplicationByNameAndSpaceArgsForCall(0)

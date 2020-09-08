@@ -92,7 +92,10 @@ func (cmd RollbackCommand) Execute(args []string) error {
 	})
 	cmd.UI.DisplayNewline()
 
-	_, warnings, _ = cmd.Actor.CreateDeploymentByApplicationAndRevision(app.GUID, revision.GUID)
+	_, warnings, err = cmd.Actor.CreateDeploymentByApplicationAndRevision(app.GUID, revision.GUID)
+	if err != nil {
+		return err
+	}
 	cmd.UI.DisplayWarnings(warnings)
 
 	cmd.UI.DisplayOK()
