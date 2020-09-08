@@ -95,6 +95,7 @@ var _ = Describe("revisions command", func() {
 					Eventually(helpers.CF("push", appName, "-p", appDir)).Should(Exit(0))
 				})
 			})
+
 			It("Retrieves the revisions", func() {
 				session := helpers.CF("revisions", appName)
 				Eventually(session).Should(Exit(0))

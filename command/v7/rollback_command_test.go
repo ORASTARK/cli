@@ -139,6 +139,19 @@ var _ = Describe("rollback Command", func() {
 		})
 	})
 
+	When("the error is translatable", func() {
+		BeforeEach(func() {
+			fakeActor.GetRevisionByApplicationAndVersionReturns(resources.Revision{}, v7action.Warnings{"warning-1", "warning-2"}, actionerror.RevisionNotFoundError{Version: 1})
+		})
+
+		It("returns a translatable error and all warnings", func() {
+			Expect(executeErr).To(MatchError(actionerror.RevisionNotFoundError{Version: 1}))
+
+			Expect(testUI.Err).To(Say("warning-1"))
+			Expect(testUI.Err).To(Say("warning-2"))
+		})
+	})
+
 	When("the first revision is set as the rollback target", func() {
 		BeforeEach(func() {
 			cmd.Version = flag.PositiveInteger{Value: 1}

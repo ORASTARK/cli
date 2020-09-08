@@ -100,6 +100,16 @@ applications:
 					})
 				})
 
+				When("the desired revision does not exist", func() {
+					It("errors with 'revision not found'", func() {
+						session := helpers.CF("rollback", appName, "--revision", "5")
+						Eventually(session).Should(Exit(1))
+
+						Expect(session.Err).To(Say("Revision '5' not found."))
+						Expect(session).To(Say("FAILED"))
+					})
+				})
+
 				When("the -f flag is provided", func() {
 					It("does not prompt the user, and just rolls back", func() {
 						session := helpers.CF("rollback", appName, "--revision", "1", "-f")
