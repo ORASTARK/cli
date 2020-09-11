@@ -6,8 +6,9 @@ import "fmt"
 // found.
 type RevisionNotFoundError struct {
 	Version int
+	App     string
 }
 
 func (e RevisionNotFoundError) Error() string {
-	return fmt.Sprintf("Revision '%d' not found", e.Version)
+	return fmt.Sprintf("Revision '%d' for app '%s' not found", e.Version, e.App)
 }

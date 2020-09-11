@@ -115,7 +115,7 @@ applications:
 						session := helpers.CF("rollback", appName, "--revision", "1", "-f")
 						Eventually(session).Should(Exit(0))
 
-						Expect(session).To(Say("Rolling back to revision 1 for app %s in org %s / space %s as %s...", appName, orgName, spaceName, userName))
+						Expect(session).To(Say("%s in org %s / space %s as %s...", appName, orgName, spaceName, userName))
 						Expect(session).To(Say("OK"))
 
 						Expect(session).ToNot(Say("Are you sure you want to continue?"))
