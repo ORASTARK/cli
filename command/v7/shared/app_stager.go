@@ -57,6 +57,7 @@ type Stager struct {
 
 type stagingAndStartActor interface {
 	CreateDeploymentByApplicationAndDroplet(appGUID string, dropletGUID string) (string, v7action.Warnings, error)
+	CreateDeploymentByApplicationAndRevision(appGUID string, revisionGUID string) (string, v7action.Warnings, error)
 	GetDetailedAppSummary(appName string, spaceGUID string, withObfuscatedValues bool) (v7action.DetailedApplicationSummary, v7action.Warnings, error)
 	GetStreamingLogsForApplicationByNameAndSpace(appName string, spaceGUID string, client sharedaction.LogCacheClient) (<-chan sharedaction.LogMessage, <-chan error, context.CancelFunc, v7action.Warnings, error)
 	PollStart(app resources.Application, noWait bool, handleProcessStats func(string)) (v7action.Warnings, error)
@@ -140,7 +141,18 @@ func (stager *Stager) StartApp(
 			},
 		)
 
-		deploymentGUID, warnings, err := stager.Actor.CreateDeploymentByApplicationAndDroplet(app.GUID, resourceGuid)
+		var (
+			deploymentGUID string
+			warnings       v7action.Warnings
+			err            error
+		)
+
+		// switch appAction {
+		// case constant.ApplicationRollingBack:
+		// 	deploymentGUID, warnings, err = stager.Actor.CreateDeploymentByApplicationAndRevision(app.GUID, resourceGuid)
+		// default:
+		deploymentGUID, warnings, err = stager.Actor.CreateDeploymentByApplicationAndDroplet(app.GUID, resourceGuid)
+		// }
 
 		stager.UI.DisplayWarnings(warnings)
 		if err != nil {
