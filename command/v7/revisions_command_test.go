@@ -98,21 +98,21 @@ var _ = Describe("revisions Command", func() {
 				BeforeEach(func() {
 					revisions := []resources.Revision{
 						{
-							Version:     1,
+							Version:     "1",
 							GUID:        "17E0E587-0E53-4A6E-B6AE-82073159F910",
 							Description: "Something",
 							CreatedAt:   "2020-03-04T13:23:32Z",
 							Deployable:  false,
 						},
 						{
-							Version:     2,
+							Version:     "2",
 							GUID:        "A89F8259-D32B-491A-ABD6-F100AC42D74C",
 							Description: "Something else",
 							CreatedAt:   "2020-03-08T12:43:30Z",
 							Deployable:  true,
 						},
 						{
-							Version:     3,
+							Version:     "3",
 							GUID:        "A68F13F7-7E5E-4411-88E8-1FAC54F73F50",
 							Description: "On a different note",
 							CreatedAt:   "2020-03-10T17:11:58Z",

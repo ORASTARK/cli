@@ -120,7 +120,7 @@ type Actor interface {
 	GetRawApplicationManifestByNameAndSpace(appName string, spaceGUID string) ([]byte, v7action.Warnings, error)
 	GetRecentEventsByApplicationNameAndSpace(appName string, spaceGUID string) ([]v7action.Event, v7action.Warnings, error)
 	GetRecentLogsForApplicationByNameAndSpace(appName string, spaceGUID string, client sharedaction.LogCacheClient) ([]sharedaction.LogMessage, v7action.Warnings, error)
-	GetRevisionByApplicationAndVersion(appGUID string, revisionVersion int) (resources.Revision, v7action.Warnings, error)
+	GetRevisionByApplicationAndVersion(appGUID string, revisionVersion string) (resources.Revision, v7action.Warnings, error)
 	GetRevisionsByApplicationNameAndSpace(appName string, spaceGUID string) ([]resources.Revision, v7action.Warnings, error)
 	GetRouteByAttributes(domain resources.Domain, hostname string, path string, port int) (resources.Route, v7action.Warnings, error)
 	GetRouteDestinationByAppGUID(route resources.Route, appGUID string) (resources.RouteDestination, error)

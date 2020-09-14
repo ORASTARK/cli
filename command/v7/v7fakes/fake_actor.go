@@ -1532,11 +1532,11 @@ type FakeActor struct {
 		result2 v7action.Warnings
 		result3 error
 	}
-	GetRevisionByApplicationAndVersionStub        func(string, int) (resources.Revision, v7action.Warnings, error)
+	GetRevisionByApplicationAndVersionStub        func(string, string) (resources.Revision, v7action.Warnings, error)
 	getRevisionByApplicationAndVersionMutex       sync.RWMutex
 	getRevisionByApplicationAndVersionArgsForCall []struct {
 		arg1 string
-		arg2 int
+		arg2 string
 	}
 	getRevisionByApplicationAndVersionReturns struct {
 		result1 resources.Revision
@@ -9630,12 +9630,12 @@ func (fake *FakeActor) GetRecentLogsForApplicationByNameAndSpaceReturnsOnCall(i 
 	}{result1, result2, result3}
 }
 
-func (fake *FakeActor) GetRevisionByApplicationAndVersion(arg1 string, arg2 int) (resources.Revision, v7action.Warnings, error) {
+func (fake *FakeActor) GetRevisionByApplicationAndVersion(arg1 string, arg2 string) (resources.Revision, v7action.Warnings, error) {
 	fake.getRevisionByApplicationAndVersionMutex.Lock()
 	ret, specificReturn := fake.getRevisionByApplicationAndVersionReturnsOnCall[len(fake.getRevisionByApplicationAndVersionArgsForCall)]
 	fake.getRevisionByApplicationAndVersionArgsForCall = append(fake.getRevisionByApplicationAndVersionArgsForCall, struct {
 		arg1 string
-		arg2 int
+		arg2 string
 	}{arg1, arg2})
 	fake.recordInvocation("GetRevisionByApplicationAndVersion", []interface{}{arg1, arg2})
 	fake.getRevisionByApplicationAndVersionMutex.Unlock()
@@ -9655,13 +9655,13 @@ func (fake *FakeActor) GetRevisionByApplicationAndVersionCallCount() int {
 	return len(fake.getRevisionByApplicationAndVersionArgsForCall)
 }
 
-func (fake *FakeActor) GetRevisionByApplicationAndVersionCalls(stub func(string, int) (resources.Revision, v7action.Warnings, error)) {
+func (fake *FakeActor) GetRevisionByApplicationAndVersionCalls(stub func(string, string) (resources.Revision, v7action.Warnings, error)) {
 	fake.getRevisionByApplicationAndVersionMutex.Lock()
 	defer fake.getRevisionByApplicationAndVersionMutex.Unlock()
 	fake.GetRevisionByApplicationAndVersionStub = stub
 }
 
-func (fake *FakeActor) GetRevisionByApplicationAndVersionArgsForCall(i int) (string, int) {
+func (fake *FakeActor) GetRevisionByApplicationAndVersionArgsForCall(i int) (string, string) {
 	fake.getRevisionByApplicationAndVersionMutex.RLock()
 	defer fake.getRevisionByApplicationAndVersionMutex.RUnlock()
 	argsForCall := fake.getRevisionByApplicationAndVersionArgsForCall[i]

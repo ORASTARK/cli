@@ -127,9 +127,9 @@ var _ = Describe("rollback Command", func() {
 		})
 	})
 
-	When("the first revision is set as the rollback target", func() {
+	When("a valid revision is set as the rollback target", func() {
 		BeforeEach(func() {
-			cmd.Version = flag.PositiveInteger{Value: 1}
+			cmd.Version = "1"
 		})
 
 		When("the app has at least one revision", func() {
@@ -141,7 +141,7 @@ var _ = Describe("rollback Command", func() {
 				)
 
 				fakeActor.GetRevisionByApplicationAndVersionReturns(
-					resources.Revision{Version: 1, GUID: "some-1-guid"},
+					resources.Revision{Version: "1", GUID: "some-1-guid"},
 					v7action.Warnings{"revision-warning-3"},
 					nil,
 				)
@@ -163,7 +163,7 @@ var _ = Describe("rollback Command", func() {
 				appGUID, version := fakeActor.GetRevisionByApplicationAndVersionArgsForCall(0)
 				Expect(appGUID).To(Equal("123"))
 				Expect(spaceGUID).To(Equal("some-space-guid"))
-				Expect(version).To(Equal(1))
+				Expect(version).To(Equal("1"))
 			})
 
 			When("the user passes the force flag", func() {
